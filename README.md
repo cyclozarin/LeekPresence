@@ -28,3 +28,5 @@ As of now you can only change Discord App ID for abillity to change presence ico
   - `cw` - shows up when virality isnt loaded
   - `virality` - shows up when virality is loaded
   - `alive`, `dead`, `everyoneisdead` - indicates whenether or not you're alive, dead or everyone has died
+  
+*P. S. Name is mispelled intentionally as the reference to LiveLeek, a Streamer's streaming platform as been officially stated by one of the cw devs Wilnyl.*
