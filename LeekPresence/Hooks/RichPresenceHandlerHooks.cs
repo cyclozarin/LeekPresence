@@ -31,7 +31,7 @@ namespace LeekPresence.Hooks
         {
             try
             {
-                RichPresenceHandler._discord = new Discord.Discord(1278755625123184681L, (ulong)CreateFlags.NoRequireDiscord);
+                RichPresenceHandler._discord = new Discord.Discord(Plugin.DiscordAppID.Value, (ulong)CreateFlags.NoRequireDiscord);
             }
             catch (Exception arg)
             {
@@ -79,15 +79,12 @@ namespace LeekPresence.Hooks
                             CurrentSize = RichPresenceHandler._currentPlayersInGroup,
                             MaxSize = PhotonNetwork.CurrentRoom.MaxPlayers
                         },
-                        Privacy = ActivityPartyPrivacy.Public,
+                        Privacy = ActivityPartyPrivacy.Public
                     };
 
-                    if (!SurfaceNetworkHandler.HasStarted)
+                    if (!SurfaceNetworkHandler.HasStarted || SurfaceNetworkHandler.HasStarted && Plugin.ViralityLateJoinEnabled() && TimeOfDayHandler.TimeOfDay == TimeOfDay.Morning)
                         _activity.Secrets.Join = MainMenuHandler.SteamLobbyHandler.m_CurrentLobby.ToString();
                 }
-
-                if (!_failedQuota && !CameraHook.Recording && PlayerHook.StatusUpdateTimer != 0)
-                    _activity.Timestamps.Start = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
 
                 _activityManager.UpdateActivity(_activity, delegate (Result result)
                 {
@@ -160,13 +157,11 @@ namespace LeekPresence.Hooks
                     return LeekPresence.GetCurrentMap().ToLower();
             }
             if (RichPresenceHandler._currentState == RichPresenceState.Status_AtHouse && TimeOfDayHandler.TimeOfDay == TimeOfDay.Morning)
-            {
                 return "surface";
-            }
+            else if (RichPresenceHandler._currentState == RichPresenceState.Status_AtHouse && TimeOfDayHandler.TimeOfDay == TimeOfDay.Evening && PhotonGameLobbyHandler.CurrentObjective is CelebrateObjective)
+                return "watchingvideo";
             else if (RichPresenceHandler._currentState == RichPresenceState.Status_AtHouse && TimeOfDayHandler.TimeOfDay == TimeOfDay.Evening)
-            {
                 return "mainmenu";
-            }
 
             return string.Empty;
         }
@@ -182,6 +177,8 @@ namespace LeekPresence.Hooks
                 return $"Current map: {LeekPresence.GetCurrentMap()}";
             else if (RichPresenceHandler._currentState == RichPresenceState.Status_AtHouse && TimeOfDayHandler.TimeOfDay == TimeOfDay.Morning)
                 return "At the surface";
+            else if (RichPresenceHandler._currentState == RichPresenceState.Status_AtHouse && TimeOfDayHandler.TimeOfDay == TimeOfDay.Evening && PhotonGameLobbyHandler.CurrentObjective is CelebrateObjective)
+                return $"Watching the video ({UploadCompleteUIHook.ViewsString})";
             else if (RichPresenceHandler._currentState == RichPresenceState.Status_AtHouse && TimeOfDayHandler.TimeOfDay == TimeOfDay.Evening)
                 return "Back from the Old World";
             switch (RichPresenceHandler._currentState)

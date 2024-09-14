@@ -70,4 +70,6 @@
     <ItemGroup>
         <Reference Include="$(MMHOOKManaged)MMHOOK_Assembly-CSharp.dll" />
     </ItemGroup>
+	
+	
 </Project>
