@@ -71,5 +71,5 @@
         <Reference Include="$(MMHOOKManaged)MMHOOK_Assembly-CSharp.dll" />
     </ItemGroup>
 	
-	
+	<Import Project="./LeekPresence.Packaging.targets" />
 </Project>
