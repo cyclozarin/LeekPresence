@@ -9,7 +9,7 @@ Since original game's Discord Rich Presence is not very interesting enough, this
 ## Configuration
 
 As of now you can only change Discord App ID for abillity to change presence icons, but more config will probably be added in later updates.
-(That is first mod that uses BepInEx config, so you need to change it in your Config Manager)
+(That is first mod that uses BepInEx config, so you need to change it in your mod manager's Config Manager or mod's cfg file in BepInEx config folder)
 
 - Discord App ID (long)
   - Description: Determines Discord App ID for mod to use.
