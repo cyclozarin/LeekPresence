@@ -15,14 +15,14 @@ namespace LeekPresence.Hooks
         private static void MMHook_Postfix_DisplayComment(On.UploadCompleteUI.orig_DisplayComment orig, UploadCompleteUI self, Comment comment)
         {
             orig(self, comment);
-            ViewsString = self.m_ViewsText.ToLower();
+            ViewsString = self.m_views.text;
             RichPresenceHandler.DirtyDiscord();
         }
 
         private static void MMHook_Postfix_PlayVideo(On.UploadCompleteUI.orig_PlayVideo orig, UploadCompleteUI self, IPlayableVideo playableVideo, int views, Comment[] comments, Action onPlayed)
         {
             orig(self, playableVideo, views, comments, onPlayed);
-            ViewsString = self.m_ViewsText.ToLower();
+            ViewsString = self.m_views.text;
             RichPresenceHandler.DirtyDiscord();
         }
     }

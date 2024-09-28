@@ -53,13 +53,14 @@ namespace LeekPresence
 
         internal static bool ViralityLateJoinEnabled()
         {
+            if (!ViralityLoaded()) return false;
             BepInEx.Bootstrap.Chainloader.PluginInfos.First((x) => x.Key == "MaxWasUnavailable.Virality").Value.Instance.Config.TryGetEntry<bool>("General", "AllowLateJoin", out var _allowLateJoin);
             return _allowLateJoin.Value;
         }
 
         internal static bool InTheOldWorld()
         {
-            return RichPresenceHandler._currentState == RichPresenceState.Status_InFactory || RichPresenceHandler._currentState == RichPresenceState.Status_InShip;
+            return !PhotonGameLobbyHandler.IsSurface;
         }
     }
 }

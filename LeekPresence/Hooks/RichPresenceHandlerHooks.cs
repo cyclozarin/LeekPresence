@@ -111,13 +111,11 @@ namespace LeekPresence.Hooks
                     return "In the Old World";
             }
             if (RichPresenceHandler._currentState == RichPresenceState.Status_AtHouse && TimeOfDayHandler.TimeOfDay == TimeOfDay.Morning)
-            {
                 return "At the surface";
-            }
+            else if (RichPresenceHandler._currentState == RichPresenceState.Status_AtHouse && TimeOfDayHandler.TimeOfDay == TimeOfDay.Evening && PhotonGameLobbyHandler.CurrentObjective is CelebrateObjective)
+                return $"Watching the video ({UploadCompleteUIHook.ViewsString})";
             else if (RichPresenceHandler._currentState == RichPresenceState.Status_AtHouse && TimeOfDayHandler.TimeOfDay == TimeOfDay.Evening)
-            {
                 return "Back from the Old World";
-            }
 
             return string.Empty;
         }
@@ -156,10 +154,10 @@ namespace LeekPresence.Hooks
                 case RichPresenceState.Status_InShip:
                     return LeekPresence.GetCurrentMap().ToLower();
             }
-            if (RichPresenceHandler._currentState == RichPresenceState.Status_AtHouse && TimeOfDayHandler.TimeOfDay == TimeOfDay.Morning)
-                return "surface";
-            else if (RichPresenceHandler._currentState == RichPresenceState.Status_AtHouse && TimeOfDayHandler.TimeOfDay == TimeOfDay.Evening && PhotonGameLobbyHandler.CurrentObjective is CelebrateObjective)
+            if (RichPresenceHandler._currentState == RichPresenceState.Status_AtHouse && TimeOfDayHandler.TimeOfDay == TimeOfDay.Evening && PhotonGameLobbyHandler.CurrentObjective is CelebrateObjective)
                 return "watchingvideo";
+            else if (RichPresenceHandler._currentState == RichPresenceState.Status_AtHouse && TimeOfDayHandler.TimeOfDay == TimeOfDay.Morning)
+                return "surface";
             else if (RichPresenceHandler._currentState == RichPresenceState.Status_AtHouse && TimeOfDayHandler.TimeOfDay == TimeOfDay.Evening)
                 return "mainmenu";
 
@@ -175,10 +173,10 @@ namespace LeekPresence.Hooks
             }
             else if (LeekPresence.InTheOldWorld())
                 return $"Current map: {LeekPresence.GetCurrentMap()}";
+            else if (RichPresenceHandler._currentState == RichPresenceState.Status_AtHouse && TimeOfDayHandler.TimeOfDay == TimeOfDay.Evening && PhotonGameLobbyHandler.CurrentObjective is CelebrateObjective)
+                return $"Watching the video";
             else if (RichPresenceHandler._currentState == RichPresenceState.Status_AtHouse && TimeOfDayHandler.TimeOfDay == TimeOfDay.Morning)
                 return "At the surface";
-            else if (RichPresenceHandler._currentState == RichPresenceState.Status_AtHouse && TimeOfDayHandler.TimeOfDay == TimeOfDay.Evening && PhotonGameLobbyHandler.CurrentObjective is CelebrateObjective)
-                return $"Watching the video ({UploadCompleteUIHook.ViewsString})";
             else if (RichPresenceHandler._currentState == RichPresenceState.Status_AtHouse && TimeOfDayHandler.TimeOfDay == TimeOfDay.Evening)
                 return "Back from the Old World";
             switch (RichPresenceHandler._currentState)
@@ -223,7 +221,7 @@ namespace LeekPresence.Hooks
             if (LeekPresence.InTheOldWorld())
             {
                 if (!Player.localPlayer.data.dead)
-                    return $"Alive - HP: {Mathf.Round(Player.localPlayer.data.health)}, O2: {Mathf.Round(Player.localPlayer.data.OxygenPercentage() * 100)}%";
+                    return $"Alive - HP: {Mathf.Round(Player.localPlayer.data.health)}, O2: {Mathf.Round(Player.localPlayer.data.OxygenPercentage() * 100)}%, current face {Player.localPlayer.refs.visor.visorFaceText.text}";
                 else if (PlayerHandler.instance.playersAlive.Count == 0 && PlayerHandler.instance.players.Count > 1)
                     return "Everyone is dead.";
                 else
