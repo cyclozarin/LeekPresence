@@ -25,6 +25,10 @@ source = "../../CHANGELOG.md"
 target = "/"
 
 [[build.copy]]
+source = "../../LICENSE.txt"
+target = "/"
+
+[[build.copy]]
 source = "../bin/Release/netstandard2.1/cyclozarin.contentwarning.LeekPresence.dll"
 target = "/BepInEx/plugins/LeekPresence/"
 
