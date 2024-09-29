@@ -60,7 +60,7 @@ namespace LeekPresence
 
         internal static bool InTheOldWorld()
         {
-            return !PhotonGameLobbyHandler.IsSurface;
+            return RichPresenceHandler._currentState == RichPresenceState.Status_InFactory || RichPresenceHandler._currentState == RichPresenceState.Status_InShip;
         }
     }
 }
